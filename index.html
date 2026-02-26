@@ -222,6 +222,17 @@
     </div>
   </section>
 
+  <div id="musicButton" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-50 
+     w-14 h-14 
+     rounded-full 
+     bg-[var(--champagne)] 
+     flex items-center justify-center 
+     shadow-lg cursor-pointer
+     hidden">
+
+    <img id="musicIcon" src="https://cdn-icons-png.flaticon.com/128/651/651717.png" class="w-6 h-6">
+  </div>
+
   <section id="content" class="hidden">
 
     <section class="hero">
@@ -524,7 +535,6 @@
   </section>
 
   <script>
-    /* SPARKLES */
     const sparkleContainer = document.getElementById("sparkles");
     for (let i = 0; i < 30; i++) {
       const sp = document.createElement("div");
@@ -535,7 +545,6 @@
       sparkleContainer.appendChild(sp);
     }
 
-    /* PARTICLES */
     const particleContainer = document.getElementById("particles");
     for (let i = 0; i < 18; i++) {
       const p = document.createElement("div");
@@ -548,10 +557,15 @@
     function openInvitation() {
       const curtain = document.getElementById('curtain');
       const music = document.getElementById('music');
+      const musicBtn = document.getElementById('musicButton');
+      const icon = document.getElementById('musicIcon');
 
       music.volume = 0;
 
-      music.play().catch(error => {
+      music.play().then(() => {
+        icon.classList.remove('paused');
+        icon.src = "https://cdn-icons-png.flaticon.com/128/5577/5577228.png";
+      }).catch(error => {
         console.log("Autoplay dicegah browser:", error);
       });
 
@@ -569,7 +583,27 @@
         document.getElementById('content').classList.remove('hidden');
         curtain.classList.remove('active');
         document.body.style.overflow = 'auto';
+
+        musicBtn.classList.remove('hidden');
+
       }, 1200);
+    }
+  </script>
+
+  <script>
+    function toggleMusic() {
+      const music = document.getElementById('music');
+      const icon = document.getElementById('musicIcon');
+
+      if (music.paused) {
+        music.play();
+        icon.src = "https://cdn-icons-png.flaticon.com/128/5577/5577228.png"; // pause icon
+        icon.classList.remove('paused');
+      } else {
+        music.pause();
+        icon.src = "https://cdn-icons-png.flaticon.com/128/651/651717.png"; // play icon
+        icon.classList.add('paused');
+      }
     }
   </script>
 
