@@ -222,15 +222,15 @@
     </div>
   </section>
 
-  <div id="musicButton" onclick="toggleMusic()" class="fixed bottom-6 right-6 z-50 
-     w-14 h-14 
-     rounded-full 
-     bg-[var(--champagne)] 
-     flex items-center justify-center 
-     shadow-lg cursor-pointer
-     hidden">
-
-    <img id="musicIcon" src="https://cdn-icons-png.flaticon.com/128/651/651717.png" class="w-6 h-6">
+  <div id="musicButton" onclick="toggleMusic()" class="fixed bottom-4 right-4 z-50 
+  w-10 h-10 
+  sm:w-12 sm:h-12 
+  rounded-full 
+  bg-[var(--champagne)] 
+  flex items-center justify-center 
+  shadow-lg cursor-pointer
+  hidden">
+    <img id="musicIcon" src="https://cdn-icons-png.flaticon.com/128/6529/6529049.png" class="w-4 h-4 sm:w-5 sm:h-5">
   </div>
 
   <section id="content" class="hidden">
@@ -601,7 +601,7 @@
         icon.classList.remove('paused');
       } else {
         music.pause();
-        icon.src = "https://cdn-icons-png.flaticon.com/128/651/651717.png"; // play icon
+        icon.src = "https://cdn-icons-png.flaticon.com/128/6529/6529049.png"; // play icon
         icon.classList.add('paused');
       }
     }
