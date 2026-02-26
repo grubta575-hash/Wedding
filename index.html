@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mufit & Tanti Wedding</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="stylesheet" href="style.css">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&family=Inter:wght@300;400&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --emerald: #0f2f2a;
+      --emerald-soft: #18423b;
+      --champagne: #d4b06a;
+      --cream: #f8f6f1;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--emerald);
+      overflow: hidden;
+    }
+
+    .font-serif {
+      font-family: 'Playfair Display', serif
+    }
+
+    .font-script {
+      font-family: 'Great Vibes', cursive
+    }
+
+    /* =========================
+   CINEMATIC ZOOM
+========================= */
+    .bg-zoom {
+      animation: zoom 25s ease-in-out infinite alternate;
+    }
+
+    @keyframes zoom {
+      from {
+        transform: scale(1)
+      }
+
+      to {
+        transform: scale(1.12)
+      }
+    }
+
+    /* =========================
+   CURTAIN
+========================= */
+    .curtain {
+      position: fixed;
+      inset: 0;
+      background: var(--emerald);
+      z-index: 50;
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 1.2s cubic-bezier(.77, 0, .18, 1);
+    }
+
+    .curtain.active {
+      transform: scaleY(1);
+    }
+
+    /* =========================
+   SPARKLE
+========================= */
+    .sparkles,
+    .particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--champagne);
+      border-radius: 50%;
+      opacity: 0;
+      animation: twinkle 3s infinite;
+    }
+
+    @keyframes twinkle {
+
+      0%,
+      100% {
+        opacity: 0;
+        transform: scale(.5)
+      }
+
+      50% {
+        opacity: 1;
+        transform: scale(1.5)
+      }
+    }
+
+    /* =========================
+   ISLAMIC LIGHT PARTICLES
+========================= */
+    .particle {
+      position: absolute;
+      width: 2px;
+      height: 70px;
+      background: linear-gradient(to bottom, rgba(212, 176, 106, .4), transparent);
+      animation: float 14s linear infinite;
+      opacity: .5;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh)
+      }
+
+      100% {
+        transform: translateY(-20vh)
+      }
+    }
+
+    .fade {
+      animation: fadeUp 1.5s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px)
+      }
+
+      to {
+        opacity: 1;
+        transform: none
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="curtain" class="curtain"></div>
+
+  <audio id="music" loop preload="auto">
+    <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_8c0cfcfc51.mp3">
+  </audio>
+
+  <section id="cover" class="min-h-screen flex items-center justify-center relative overflow-hidden">
+
+    <img src="https://images.pexels.com/photos/5902752/pexels-photo-5902752.jpeg"
+      class="absolute inset-0 w-full h-full object-cover bg-zoom">
+
+    <div class="absolute inset-0 bg-[rgba(15,47,42,.78)]"></div>
+
+    <!-- EFFECT CONTAINERS -->
+    <div class="sparkles" id="sparkles"></div>
+    <div class="particles" id="particles"></div>
+
+    <div class="relative text-center text-white fade z-20">
+
+      <p class="tracking-[0.3em] text-[10px] sm:text-xs uppercase mb-6 opacity-80">
+        The Wedding Of
+      </p>
+
+      <h1 class="leading-none">
+        <span class="block font-script 
+    text-5xl 
+    sm:text-6xl 
+    md:text-7xl 
+    lg:text-8xl">
+          Mufit
+        </span>
+
+        <span class="block font-serif 
+    text-2xl 
+    sm:text-3xl 
+    md:text-4xl 
+    text-[var(--champagne)] my-4">
+          &
+        </span>
+
+        <span class="block font-script 
+    text-5xl 
+    sm:text-6xl 
+    md:text-7xl 
+    lg:text-8xl">
+          Tanti
+        </span>
+      </h1>
+
+      <p class="mt-4 text-xs sm:text-sm opacity-80">
+        Sabtu, 12 Desember 2026
+      </p>
+
+      <button onclick="openInvitation()" class="mt-6 sm:mt-10
+  px-3 sm:px-6
+  py-2 sm:py-3
+  border border-[var(--champagne)]
+  hover:bg-[var(--champagne)] hover:text-[var(--emerald)]
+  transition duration-300
+  rounded-full
+  text-[11px] sm:text-sm
+  tracking-[0.1em] sm:tracking-widest
+  flex items-center gap-1.5 sm:gap-3
+  mx-auto">
+
+        <img src="letter.png" alt="Buka Undangan" class="w-4 h-4 sm:w-7 sm:h-7">
+
+        Buka Undangan
+      </button>
+
+    </div>
+  </section>
+
+  <section id="content" class="hidden">
+
+    <section class="hero">
+
+      <div class="hero-bg">
+        <div class="slide active"></div>
+        <div class="slide"></div>
+        <div class="slide"></div>
+      </div>
+
+      <div class="hero-overlay">
+
+        <div class="hero-content">
+
+          <div class="ornament-top"></div>
+
+          <p class="top-text">The Wedding Of</p>
+
+          <h1 class="couple-name">
+            Mufit <span>&</span> Tanti
+          </h1>
+
+          <div class="gold-divider"></div>
+
+          <p class="date">Sabtu, 21 Januari 2026</p>
+
+          <div class="ornament-bottom"></div>
+
+        </div>
+
+      </div>
+
+      <!-- Luxury wave divider -->
+      <div class="wave-divider">
+        <svg viewBox="0 0 1440 160" xmlns="http://www.w3.org/2000/svg">
+          <path fill="#F3EFE6"
+            d="M0,96L80,106.7C160,117,320,139,480,128C640,117,800,75,960,64C1120,53,1280,75,1360,85.3L1440,96L1440,160L0,160Z">
+          </path>
+        </svg>
+      </div>
+
+    </section>
+
+    <section class="section love-section">
+      <div class="container">
+
+        <div class="icon-love">
+          <img src="https://cdn-icons-png.flaticon.com/128/1077/1077035.png" alt="Love Icon">
+        </div>
+
+        <h2 class="section-title">True Love</h2>
+
+        <div class="gold-divider"></div>
+
+        <div class="image-wrapper">
+          <img src="https://images.pexels.com/photos/8630734/pexels-photo-8630734.jpeg" class="featured-img">
+        </div>
+
+        <p class="quote">
+          “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
+          pasangan hidup dari jenismu sendiri supaya kamu merasa tenteram kepadanya.”
+        </p>
+
+        <p class="ayat">QS. Ar-Rum : 21</p>
+
+      </div>
+    </section>
+
+    <section class="section couple-section">
+      <div class="container">
+
+        <h2 class="section-title">We Are Getting Married</h2>
+        <div class="gold-divider"></div>
+
+        <div class="profile-card">
+          <div class="avatar-wrapper">
+            <!-- <img src="bingkai2.png" class="frame"> -->
+            <img src="https://images.pexels.com/photos/30723918/pexels-photo-30723918.jpeg" class="avatar">
+          </div>
+          <h3 class="name">Tanti</h3>
+          <p class="parent">Putri dari Bpk. Ahmad & Ibu Siti</p>
+          <a href="#" class="btn-ig" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/128/1384/1384031.png" alt="Instagram">
+          </a>
+        </div>
+
+        <div class="ampersand">&</div>
+
+        <div class="profile-card">
+          <div class="avatar-wrapper">
+            <!-- <img src="bingkai2.png" class="frame"> -->
+            <img src="https://images.pexels.com/photos/13529489/pexels-photo-13529489.jpeg" class="avatar">
+          </div>
+          <h3 class="name">Mufit</h3>
+          <p class="parent">Putra dari Bpk. Hasan & Ibu Rina</p>
+          <a href="#" class="btn-ig" target="_blank">
+            <img src="https://cdn-icons-png.flaticon.com/128/1384/1384031.png" alt="Instagram">
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section section-cream envelope-section">
+      <div class="container center">
+
+        <h2 class="section-title">Amplop Digital</h2>
+        <div class="gold-line"></div>
+
+        <!-- Foto Couple -->
+        <div class="couple-photo">
+          <img src="https://images.pexels.com/photos/29194911/pexels-photo-29194911.jpeg" alt="Pria">
+          <img src="https://images.pexels.com/photos/34885365/pexels-photo-34885365.jpeg" alt="Wanita">
+        </div>
+
+        <div class="envelope-card">
+
+          <div class="bank-item">
+            <div class="bank-logo">BANK JATIM</div>
+            <h3>1234 5678 9012 3456</h3>
+            <p>a.n. Ahmad & Siti</p>
+            <button class="btn-copy" onclick="copyText('1234567890123456')">
+              Salin Rekening
+            </button>
+          </div>
+
+          <div class="bank-item">
+            <div class="bank-logo">BCA</div>
+            <h3>9876 5432 1098</h3>
+            <p>a.n. Ahmad</p>
+            <button class="btn-copy" onclick="copyText('987654321098')">
+              Salin Rekening
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section countdown-section">
+      <div class="container">
+
+        <div class="countdown-card">
+
+          <h2 class="section-title light">Count The Date</h2>
+          <div class="gold-divider"></div>
+
+          <div class="countdown">
+            <div class="time-box">
+              <span>12</span>
+              <small>Hari</small>
+            </div>
+            <div class="time-box">
+              <span>10</span>
+              <small>Jam</small>
+            </div>
+            <div class="time-box">
+              <span>30</span>
+              <small>Menit</small>
+            </div>
+            <div class="time-box">
+              <span>55</span>
+              <small>Detik</small>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section section-cream">
+      <div class="container center">
+
+        <h2 class="section-title">Wedding Event</h2>
+        <div class="gold-divider"></div>
+
+        <div class="event-wrapper">
+
+          <!-- AKAD -->
+          <div class="event-card"
+            style="background-image: url('https://images.pexels.com/photos/34932603/pexels-photo-34932603.jpeg');">
+            <div class="event-overlay">
+              <h3>Akad Nikah</h3>
+              <div class="event-line"></div>
+
+              <div class="event-detail">
+                <p>Sabtu, 21 Januari 2026</p>
+                <p>Pukul 08.00 WIB</p>
+                <p>Jl. Mawar No.10, Surabaya</p>
+              </div>
+
+              <a href="#" class="btn-map">
+                <img src="https://cdn-icons-png.flaticon.com/128/447/447031.png">
+              </a>
+            </div>
+          </div>
+
+          <!-- RESEPSI -->
+          <div class="event-card"
+            style="background-image: url('https://images.pexels.com/photos/34932604/pexels-photo-34932604.jpeg');">
+            <div class="event-overlay">
+              <h3>Resepsi</h3>
+              <div class="event-line"></div>
+
+              <div class="event-detail">
+                <p>Sabtu, 21 Januari 2026</p>
+                <p>Pukul 11.00 WIB</p>
+                <p>Gedung Serbaguna Harmoni</p>
+              </div>
+
+              <a href="#" class="btn-map">
+                <img src="https://cdn-icons-png.flaticon.com/128/447/447031.png">
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section section-brown gallery-section">
+      <div class="container center">
+
+        <h2 class="section-title light">Wedding Gallery</h2>
+        <div class="gold-divider"></div>
+
+        <div class="gallery">
+          <div class="gallery-item">
+            <img src="https://images.pexels.com/photos/32541826/pexels-photo-32541826.jpeg" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.pexels.com/photos/29194911/pexels-photo-29194911.jpeg" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.pexels.com/photos/34885365/pexels-photo-34885365.jpeg" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.pexels.com/photos/19436738/pexels-photo-19436738.jpeg" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.pexels.com/photos/32541826/pexels-photo-32541826.jpeg" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.pexels.com/photos/29194911/pexels-photo-29194911.jpeg" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.pexels.com/photos/34885365/pexels-photo-34885365.jpeg" alt="">
+          </div>
+          <div class="gallery-item">
+            <img src="https://images.pexels.com/photos/19436738/pexels-photo-19436738.jpeg" alt="">
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section section-cream">
+      <div class="container center">
+
+        <h2 class="section-title">RSVP</h2>
+        <div class="gold-line"></div>
+
+        <div class="rsvp-card">
+
+          <form class="rsvp">
+            <input type="text" placeholder="Nama">
+            <textarea placeholder="Ucapan"></textarea>
+            <select>
+              <option>Hadir</option>
+              <option>Tidak Hadir</option>
+            </select>
+            <button type="submit" class="btn-gold">Kirim</button>
+          </form>
+
+        </div>
+
+        <!-- Comment List -->
+        <div class="comment-list">
+
+          <div class="comment-item">
+            <h4>Ahmad</h4>
+            <span>Hadir</span>
+            <p>Semoga menjadi keluarga sakinah mawaddah warahmah 🤍</p>
+          </div>
+
+          <div class="comment-item">
+            <h4>Siti</h4>
+            <span>Tidak Hadir</span>
+            <p>Maaf belum bisa hadir, semoga lancar sampai hari H ✨</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </section>
+
+  <script>
+    /* SPARKLES */
+    const sparkleContainer = document.getElementById("sparkles");
+    for (let i = 0; i < 30; i++) {
+      const sp = document.createElement("div");
+      sp.className = "sparkle";
+      sp.style.left = Math.random() * 100 + "%";
+      sp.style.top = Math.random() * 100 + "%";
+      sp.style.animationDelay = Math.random() * 3 + "s";
+      sparkleContainer.appendChild(sp);
+    }
+
+    /* PARTICLES */
+    const particleContainer = document.getElementById("particles");
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement("div");
+      p.className = "particle";
+      p.style.left = Math.random() * 100 + "%";
+      p.style.animationDuration = (10 + Math.random() * 8) + "s";
+      particleContainer.appendChild(p);
+    }
+
+    function openInvitation() {
+      const curtain = document.getElementById('curtain');
+      const music = document.getElementById('music');
+
+      music.volume = 0;
+      music.play();
+
+      let v = 0;
+      const fade = setInterval(() => {
+        v += 0.05;
+        music.volume = Math.min(v, 1);
+        if (v >= 1) clearInterval(fade);
+      }, 120);
+
+      curtain.classList.add('active');
+
+      setTimeout(() => {
+        document.getElementById('cover').style.display = 'none';
+        document.getElementById('content').classList.remove('hidden');
+        curtain.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }, 1200);
+    }
+  </script>
+
+  <script>
+    const targetDate = new Date("December 12, 2026 08:00:00").getTime();
+
+    setInterval(function () {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("days").innerHTML = days;
+      document.getElementById("hours").innerHTML = hours;
+      document.getElementById("minutes").innerHTML = minutes;
+      document.getElementById("seconds").innerHTML = seconds;
+
+    }, 1000);
+  </script>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+
+    function changeSlide() {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    }
+
+    setInterval(changeSlide, 5000);
+  </script>
+
+
+</body>
+
+</html>
