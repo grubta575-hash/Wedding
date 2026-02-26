@@ -608,6 +608,24 @@
   </script>
 
   <script>
+    const sections = document.querySelectorAll('.section');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    sections.forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+
+  <script>
     const targetDate = new Date("December 12, 2026 08:00:00").getTime();
 
     setInterval(function () {

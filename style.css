@@ -57,6 +57,17 @@
     z-index: 2;
 }
 
+.section {
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 1s ease;
+}
+
+.section.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
 /* Content */
 .hero-content {
     color: white;
@@ -993,10 +1004,15 @@
 }
 
 .spin-slow {
-  animation: spin 4s linear infinite;
+    animation: spin 4s linear infinite;
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
 }
