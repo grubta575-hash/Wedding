@@ -160,7 +160,7 @@
     <img src="https://images.pexels.com/photos/5902752/pexels-photo-5902752.jpeg"
       class="absolute inset-0 w-full h-full object-cover bg-zoom">
 
-    <div class="absolute inset-0 bg-[rgba(15,47,42,.78)]"></div>
+    <div class="absolute inset-0 bg-[rgba(15,47,42,.55)]"></div>
 
     <!-- EFFECT CONTAINERS -->
     <div class="sparkles" id="sparkles"></div>
@@ -277,26 +277,29 @@
     </section>
 
     <section class="section love-section">
-      <div class="container">
+      <div class="container flex justify-center">
 
-        <div class="icon-love">
-          <img src="https://cdn-icons-png.flaticon.com/128/1077/1077035.png" alt="Love Icon">
+        <div class="max-w-2xl bg-white shadow-xl rounded-3xl p-10 text-center">
+
+          <div class="icon-love mb-6 flex justify-center">
+            <img src="https://cdn-icons-png.flaticon.com/128/1077/1077035.png" alt="Love Icon"
+              class="w-10 h-10 opacity-70">
+          </div>
+
+          <h2 class="section-title mb-4">True Love</h2>
+
+          <div class="gold-divider mb-6"></div>
+
+          <p class="quote text-gray-700 leading-relaxed mb-4">
+            “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
+            pasangan hidup dari jenismu sendiri supaya kamu merasa tenteram kepadanya.”
+          </p>
+
+          <p class="ayat text-sm tracking-widest text-gray-500">
+            QS. Ar-Rum : 21
+          </p>
+
         </div>
-
-        <h2 class="section-title">True Love</h2>
-
-        <div class="gold-divider"></div>
-
-        <div class="image-wrapper">
-          <img src="https://images.pexels.com/photos/8630734/pexels-photo-8630734.jpeg" class="featured-img">
-        </div>
-
-        <p class="quote">
-          “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
-          pasangan hidup dari jenismu sendiri supaya kamu merasa tenteram kepadanya.”
-        </p>
-
-        <p class="ayat">QS. Ar-Rum : 21</p>
 
       </div>
     </section>
@@ -373,12 +376,17 @@
       </div>
     </section>
 
-    <section class="section countdown-section">
-      <div class="container">
+    <section class="section countdown-section relative bg-cover bg-center"
+      style="background-image: url('https://images.pexels.com/photos/1488318/pexels-photo-1488318.jpeg');">
+
+      <!-- Overlay biar teks tetap kebaca -->
+      <div class="absolute inset-0 bg-black/60"></div>
+
+      <div class="container relative z-10">
 
         <div class="countdown-card">
 
-          <h2 class="section-title light">Count The Date</h2>
+          <h2 class="section-title light text-white">Count The Date</h2>
           <div class="gold-divider"></div>
 
           <div class="countdown">

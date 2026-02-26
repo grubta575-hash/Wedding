@@ -1,3 +1,4 @@
+
 /* ================= ULTRA PREMIUM HERO ================= */
 
 .hero {
@@ -170,8 +171,6 @@
 /* ================= LOVE SECTION CLEAN LUXURY ================= */
 
 .love-section {
-    background: var(--emerald);
-    color: var(--cream);
     padding: 100px 20px;
     position: relative;
     text-align: center;
