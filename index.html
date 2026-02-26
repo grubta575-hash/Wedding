@@ -152,7 +152,7 @@
   <div id="curtain" class="curtain"></div>
 
   <audio id="music" loop preload="auto">
-    <source src="https://cdn.pixabay.com/audio/2022/10/30/audio_8c0cfcfc51.mp3">
+    <source src="Nadhif_Basalamah_-_kota_ini_tak_sama_tanpamu_Official_Lyric_Video_256kbps.webm" type="audio/mpeg">
   </audio>
 
   <section id="cover" class="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -550,7 +550,10 @@
       const music = document.getElementById('music');
 
       music.volume = 0;
-      music.play();
+
+      music.play().catch(error => {
+        console.log("Autoplay dicegah browser:", error);
+      });
 
       let v = 0;
       const fade = setInterval(() => {
