@@ -7,6 +7,7 @@
   <title>Mufit & Tanti Wedding</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <link rel="stylesheet" href="style.css">
 
@@ -148,9 +149,7 @@
 </head>
 
 <body>
-
   <div id="curtain" class="curtain"></div>
-
   <audio id="music" loop preload="auto">
     <source src="Nadhif_Basalamah_-_kota_ini_tak_sama_tanpamu_Official_Lyric_Video_256kbps.webm" type="audio/webm">
   </audio>
@@ -268,7 +267,7 @@
       <!-- Luxury wave divider -->
       <div class="wave-divider">
         <svg viewBox="0 0 1440 160" xmlns="http://www.w3.org/2000/svg">
-          <path fill="#F3EFE6"
+          <path fill="#f8f6f1"
             d="M0,96L80,106.7C160,117,320,139,480,128C640,117,800,75,960,64C1120,53,1280,75,1360,85.3L1440,96L1440,160L0,160Z">
           </path>
         </svg>
@@ -276,32 +275,29 @@
 
     </section>
 
-    <section class="section love-section">
-      <div class="container flex justify-center">
+    <section class="love-section">
 
-        <div class="max-w-2xl bg-white shadow-xl rounded-3xl p-10 text-center">
+      <div class="love-inner">
 
-          <div class="icon-love mb-6 flex justify-center">
-            <img src="https://cdn-icons-png.flaticon.com/128/1077/1077035.png" alt="Love Icon"
-              class="w-10 h-10 opacity-70">
-          </div>
-
-          <h2 class="section-title mb-4">True Love</h2>
-
-          <div class="gold-divider mb-6"></div>
-
-          <p class="quote text-gray-700 leading-relaxed mb-4">
-            “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
-            pasangan hidup dari jenismu sendiri supaya kamu merasa tenteram kepadanya.”
-          </p>
-
-          <p class="ayat text-sm tracking-widest text-gray-500">
-            QS. Ar-Rum : 21
-          </p>
-
+        <div class="icon-love">
+          <img src="https://cdn-icons-png.flaticon.com/128/1077/1077035.png" alt="Love Icon">
         </div>
 
+        <h2 class="section-title">True Love</h2>
+
+        <div class="gold-divider"></div>
+
+        <p class="quote">
+          “Dan di antara tanda-tanda kekuasaan-Nya ialah Dia menciptakan untukmu
+          pasangan hidup dari jenismu sendiri supaya kamu merasa tenteram kepadanya.”
+        </p>
+
+        <p class="ayat">
+          QS. Ar-Rum : 21
+        </p>
+
       </div>
+
     </section>
 
     <section class="section couple-section">
@@ -347,27 +343,24 @@
 
         <!-- Foto Couple -->
         <div class="couple-photo">
-          <img src="https://images.pexels.com/photos/29194911/pexels-photo-29194911.jpeg" alt="Pria">
-          <img src="https://images.pexels.com/photos/34885365/pexels-photo-34885365.jpeg" alt="Wanita">
+          <img src="https://images.pexels.com/photos/29194911/pexels-photo-29194911.jpeg">
+          <img src="https://images.pexels.com/photos/34885365/pexels-photo-34885365.jpeg">
         </div>
 
-        <div class="envelope-card">
+        <div class="envelope-wrapper">
 
-          <div class="bank-item">
-            <div class="bank-logo">BANK JATIM</div>
-            <h3>1234 5678 9012 3456</h3>
-            <p>a.n. Ahmad & Siti</p>
-            <button class="btn-copy" onclick="copyText('1234567890123456')">
-              Salin Rekening
-            </button>
-          </div>
+          <!-- BCA -->
+          <div class="bank-box">
+            <div class="bank-header">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/5/5c/Bank_Central_Asia.svg" class="bank-img">
+              <span>BCA</span>
+            </div>
 
-          <div class="bank-item">
-            <div class="bank-logo">BCA</div>
-            <h3>9876 5432 1098</h3>
-            <p>a.n. Ahmad</p>
-            <button class="btn-copy" onclick="copyText('987654321098')">
-              Salin Rekening
+            <div class="bank-number">9876 5432 1098</div>
+            <p class="bank-name">a.n. Ahmad</p>
+
+            <button class="btn-copy" onclick="copyText('987654321098', this)">
+              <i class="fa-regular fa-copy"></i> Salin Rekening
             </button>
           </div>
 
@@ -391,19 +384,19 @@
 
           <div class="countdown">
             <div class="time-box">
-              <span>12</span>
+              <span id="days">00</span>
               <small>Hari</small>
             </div>
             <div class="time-box">
-              <span>10</span>
+              <span id="hours">00</span>
               <small>Jam</small>
             </div>
             <div class="time-box">
-              <span>30</span>
+              <span id="minutes">00</span>
               <small>Menit</small>
             </div>
             <div class="time-box">
-              <span>55</span>
+              <span id="seconds">00</span>
               <small>Detik</small>
             </div>
           </div>
@@ -507,38 +500,33 @@
         <div class="gold-line"></div>
 
         <div class="rsvp-card">
-
-          <form class="rsvp">
-            <input type="text" placeholder="Nama">
-            <textarea placeholder="Ucapan"></textarea>
-            <select>
-              <option>Hadir</option>
-              <option>Tidak Hadir</option>
+          <form class="rsvp" id="rsvpForm">
+            <input type="text" id="name" placeholder="Nama" required>
+            <textarea id="message" placeholder="Ucapan" required></textarea>
+            <select id="status">
+              <option value="Hadir">Hadir</option>
+              <option value="InsyaAllah Hadir">InsyaAllah Akan Hadir</option>
+              <option value="Tidak Hadir">Berhalangan Hadir</option>
             </select>
             <button type="submit" class="btn-gold">Kirim</button>
           </form>
-
         </div>
 
-        <!-- Comment List -->
-        <div class="comment-list">
-
-          <div class="comment-item">
-            <h4>Ahmad</h4>
-            <span>Hadir</span>
-            <p>Semoga menjadi keluarga sakinah mawaddah warahmah 🤍</p>
-          </div>
-
-          <div class="comment-item">
-            <h4>Siti</h4>
-            <span>Tidak Hadir</span>
-            <p>Maaf belum bisa hadir, semoga lancar sampai hari H ✨</p>
-          </div>
-
-        </div>
+        <div class="comment-list" id="commentList"></div>
+        <button id="loadMoreBtn" class="btn-load">Lihat Lebih Banyak</button>
 
       </div>
     </section>
+
+    <footer class="luxury-footer">
+
+      <div class="footer-line"></div>
+
+      <p class="footer-text">
+        Crafted with love by <span>Moh. Ananta</span>
+      </p>
+
+    </footer>
 
   </section>
 
@@ -605,11 +593,11 @@
 
       if (music.paused) {
         music.play();
-        icon.src = "https://cdn-icons-png.flaticon.com/128/5577/5577228.png"; // pause icon
+        icon.src = "https://cdn-icons-png.flaticon.com/128/5577/5577228.png";
         icon.classList.remove('paused');
       } else {
         music.pause();
-        icon.src = "https://cdn-icons-png.flaticon.com/128/6529/6529049.png"; // play icon
+        icon.src = "https://cdn-icons-png.flaticon.com/128/6529/6529049.png";
         icon.classList.add('paused');
       }
     }
@@ -634,21 +622,45 @@
   </script>
 
   <script>
-    const targetDate = new Date("December 12, 2026 08:00:00").getTime();
+    function copyText(text, btn) {
+      navigator.clipboard.writeText(text);
 
-    setInterval(function () {
+      btn.innerHTML = '<i class="fa-solid fa-check"></i> Tersalin';
+      btn.style.background = "#d4af37";
+      btn.style.color = "#fff";
+
+      setTimeout(() => {
+        btn.innerHTML = '<i class="fa-regular fa-copy"></i> Salin Rekening';
+        btn.style.background = "transparent";
+        btn.style.color = "#b08d57";
+      }, 2000);
+    }
+  </script>
+
+  <script>
+    const weddingDate = new Date("2026-12-20T09:00:00").getTime();
+
+    const countdownFunction = setInterval(function () {
+
       const now = new Date().getTime();
-      const distance = targetDate - now;
+      const distance = weddingDate - now;
+
+      if (distance < 0) {
+        clearInterval(countdownFunction);
+        document.querySelector(".countdown").innerHTML =
+          "<h3 style='color:white;font-size:24px;'>Hari Bahagia Telah Tiba ✨</h3>";
+        return;
+      }
 
       const days = Math.floor(distance / (1000 * 60 * 60 * 24));
       const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
       const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-      document.getElementById("days").innerHTML = days;
-      document.getElementById("hours").innerHTML = hours;
-      document.getElementById("minutes").innerHTML = minutes;
-      document.getElementById("seconds").innerHTML = seconds;
+      document.getElementById("days").innerText = days;
+      document.getElementById("hours").innerText = hours;
+      document.getElementById("minutes").innerText = minutes;
+      document.getElementById("seconds").innerText = seconds;
 
     }, 1000);
   </script>
@@ -666,6 +678,94 @@
     setInterval(changeSlide, 5000);
   </script>
 
+  <script>
+    const { createClient } = supabase;
+
+    const supabaseClient = createClient(
+      "https://fyombxcgibfojukkrnew.supabase.co",
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ5b21ieGNnaWJmb2p1a2tybmV3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIxNzMzNTIsImV4cCI6MjA4Nzc0OTM1Mn0.zJ75kllAtYDZfzUmCfnJYoxUWxPkkfDwlCGzNMEJJA8"
+    );
+
+    const form = document.getElementById("rsvpForm");
+    const commentList = document.getElementById("commentList");
+    const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+    let displayLimit = 3;
+    let allComments = [];
+
+    async function fetchComments() {
+      const { data, error } = await supabaseClient
+        .from("rsvp")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error(error);
+        return;
+      }
+
+      allComments = data;
+      renderComments();
+    }
+
+    function renderComments() {
+      commentList.innerHTML = "";
+
+      const visibleComments = allComments.slice(0, displayLimit);
+
+      visibleComments.forEach(comment => {
+
+        let badgeClass = "badge-tidak";
+
+        if (comment.status === "Hadir") {
+          badgeClass = "badge-hadir";
+        } else if (comment.status.includes("Insya")) {
+          badgeClass = "badge-insya";
+        }
+
+        commentList.innerHTML += `
+      <div class="comment-item">
+        <h4>${comment.name}
+          <span class="${badgeClass}">${comment.status}</span>
+        </h4>
+        <p>${comment.message}</p>
+      </div>
+    `;
+      });
+
+      loadMoreBtn.style.display =
+        displayLimit >= allComments.length ? "none" : "inline-block";
+    }
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const status = document.getElementById("status").value;
+
+      if (!name || !message) return;
+
+      const { error } = await supabaseClient
+        .from("rsvp")
+        .insert([{ name, message, status }]);
+
+      if (error) {
+        alert("Gagal mengirim RSVP");
+        return;
+      }
+
+      form.reset();
+      fetchComments();
+    });
+
+    loadMoreBtn.addEventListener("click", function () {
+      displayLimit += 3;
+      renderComments();
+    });
+
+    fetchComments();
+  </script>
 
 </body>
 
